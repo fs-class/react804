@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카운터 앱</title>
+</head>
+
+<body>
+    <button>+</button>
+    <button>-</button>
+    <script>
+        const p = document.createElement('p');
+        p.textContent = '카운트: 0';
+        document.body.appendChild(p);
+
+
+        const button = document.querySelectorAll('button')[0];
+
+        let count = 0;
+        button.addEventListener('click', () => {
+            count++;
+            p.textContent = '카운트: ' + count;
+        });
+    </script>
+</body>
+
+</html>
