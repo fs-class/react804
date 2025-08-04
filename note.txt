@@ -18,13 +18,9 @@
     1) https://github.com/ 로그인
     2) react804 저장소 생성
 
+3. 업로드에서 제외할 폴더/파일 설정하기
+    .gitignore 파일 만들기
+    https://www.toptal.com/developers/gitignore
 
 
-
-
-
-3. 서버 업로드
-gitignore -> 업로드에서 제외할 폴더/파일 설정하기
-https://www.toptal.com/developers/gitignore
-
-
+터미널 ctrl+`
