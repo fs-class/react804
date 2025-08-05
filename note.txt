@@ -1,26 +1,22 @@
-텍스트 기반 명령어를 사용하여 컴퓨터를 조작하는 방식 
-- CUI(Character User Interface)
-- CLI(Command Line Interface)
-
-1. 윈+r(실행창)
-2. cmd -> Command Prompt(명령 프롬프트)
-
-개발 환경 설정하기
-1. 프로그램 설치
-    1) node.js 설치(필수)
-    https://nodejs.org/ko/download
-    2) git 설치(선택)
-    https://git-scm.com/downloads
-    3) GitHub CLI 설치(선택) -> CLI 저장소 생성
-    https://cli.github.com/
-
-2. 깃허브 저장소 생성하기
-    1) https://github.com/ 로그인
-    2) react804 저장소 생성
-
-3. 업로드에서 제외할 폴더/파일 설정하기
-    .gitignore 파일 만들기
-    https://www.toptal.com/developers/gitignore
+리액트 프로젝트 생성
+1. CDN
+2. CRA -> 1차: my-app
+3. Vite
 
 
-터미널 ctrl+`
+ES6
+1. const, let
+2. ()=>{}
+3. (조건) ? 참 : 거짓
+4. 모듈화: export default, import
+5. map()
+6. ...
+
+터미널 열기: ctrl+`
+
+서버 실행 강제 종료: ctrl+c
+일괄 작업을 끝내시겠습니까 (Y/N)? y
+/react804/cra/my-app>
+
+프로젝트 실행
+npm start
