@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- React, ReactDOM, Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>리액트: 종합 연습</title>
+</head>
+
+<body>
+    <!-- index.html -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // App.js
+        /* 
+            function 컴포넌트명() {
+                return (값);
+            }
+        */
+
+        // App 컴포넌트
+        function App() {
+            const mode = 'WELCOME';
+            const topics = [
+                { id: 1, title: 'html', body: 'html is ...' },
+                { id: 2, title: 'css', body: 'css is ...' },
+                { id: 3, title: 'javascript', body: 'javascript is ...' }
+            ];
+
+            let content = null;
+            // 제어문
+            if (mode === 'WELCOME') {
+                content = <Article title="Welcome" body="Hello, Web"></Article>
+            } else if (mode === 'READ') {
+                
+            }
+
+            return (
+                <div>
+                    {/* 리액트의 속성을 props라 부른다. */}
+                    {/* <컴포넌트명 속성="값" /> */}
+                    <Header subject="Web" onChangeMode={()=>{
+                        alert('header');
+                    }}></Header>
+                    <Nav topics={topics} onChangeMode={(id)=>{
+                        alert(id);
+                    }} />
+                    <Article title="Welcome" body="Hello, WEB" />
+                </div>
+            );
+        }
+
+
+        // Header
+        function Header(props) {
+            // props는 {subject: "React"}
+            // props.subject는 React
+            // console.log(props.subject);
+            return (
+                <header>
+                    <h1>
+                        <a href="/" onClick={e=>{
+                            e.preventDefault();
+                            props.onChangeMode();
+                        }}>{props.subject}</a>
+                    </h1>
+                </header>
+            );
+        }
+
+        // Nav 컴포넌트
+        function Nav(props) {
+            const lis = [];
+            for (let i=0; i<props.topics.length; i++){
+                let t = props.topics[i];
+                lis.push(<li key={t.id}><a id={t.id} href={"/read/" + t.id} onClick={event=>{
+                    event.preventDefault();
+                    console.log(event.target);
+                    props.onChangeMode(event.target.id);
+                }}>{t.title}</a></li>);
+            }
+            return (
+                <nav>
+                    <ol>
+                        {lis}
+                    </ol>
+                </nav>
+            );
+        }
+
+        // Article
+        function Article(props) {
+            return (
+                <article>
+                    <h2>{props.title}</h2>
+                    {props.body}
+                </article>
+            );
+        }
+
+
+
+        // index.js
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

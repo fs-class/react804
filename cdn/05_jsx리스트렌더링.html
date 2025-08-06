@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- React, ReactDOM, Babel CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>리액트 렌더링</title>
+</head>
+
+<body>
+  <!-- index.html -->
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // App.js
+
+    /* 
+        반복문: map()
+        arr.map((element, [index], [array]) => {
+          // return으로 새로운 값을 반환
+        });
+
+        <ul>
+            <li>Apple</li>
+            <li>Banana</li>
+            <li>Cherry</li>
+        </ul>
+    */
+
+    const fruits = ['🍎 Apple', '🍌 Banana', '🍇 Grape'];
+
+    function FruitList() {
+      return (
+        <ul>
+          {fruits.map((fruit, index) => (
+            <li key={index}>{fruit}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    // key는 항목마다 고유해야 하며, index는 임시로만 사용하는 것이 좋습니다. 가능하면 고유 ID 사용
+
+    const users = [
+      { id: 'u1', name: 'Alice' },
+      { id: 'u2', name: 'Bob' },
+    ];
+
+    function UserList() {
+      return (
+        <ul>
+          {users.map(user => (
+            <li key={user.id}>{user.name}</li>
+          ))}
+        </ul>
+      );
+    }
+
+
+    // index.js
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(
+      <>
+        <FruitList />
+        <UserList />
+      </>
+    );
+  </script>
+</body>
+
+</html>
