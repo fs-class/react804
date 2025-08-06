@@ -83,6 +83,7 @@
       border-radius: 5px;
       border: 1px solid #4c4c4c;
       margin-right: 6px;
+      cursor: pointer;
     }
 
     button {
@@ -105,13 +106,31 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const MovieCard = ({ rank, image, likes }) => {
+    const { useState } = React;
+
+    // 좋아요 숫자를 '3.3k' 형식으로 변환하는 함수
+    const formatLikes = (num) => {
+      if (isNaN(num)) return "0";
+      // toFixed(1)는 소수점 한 자리까지 표시하는 문자열
+      // replace(/\.0$/, '')는 문자열 끝에 .0이 있으면 제거
+      return num >= 1000 ? (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k' : num;
+    };
+
+    const MovieCard = ({ rank, image, initialLikes }) => {
+      const safeInitial = typeof initialLikes === "number"
+        ? initialLikes
+        : parseFloat((initialLikes + "").replace("k", "")) * 1000 || 0;
+
+      const [likes, setLikes] = useState(safeInitial);
+
+      const handleLike = () => setLikes(likes + 1);
+
       return (
         <div className="movie-card">
           <div className="rank">{rank}</div>
           <img src={image} alt={`영화 순위 ${rank}`} />
           <div className="likes-btn">
-            <div className="likes">♡ {likes}</div>
+            <div className="likes" onClick={handleLike}>♡ {formatLikes(likes)}</div>
             <button>예매</button>
           </div>
         </div>
@@ -123,22 +142,22 @@
         {
           rank: 1,
           image: "https://img.megabox.co.kr/SharedImg/2025/07/25/4fLIzM7kJAnaPCu4ngQJLhgP7ak3GMrs_420.jpg",
-          likes: "3.3k",
+          likes: 3300,
         },
         {
           rank: 2,
           image: "https://img.megabox.co.kr/SharedImg/2025/08/05/GCFwvyXNbZTEogfoCW4TQNLiBNc5l6Hy_420.jpg",
-          likes: "1k",
+          likes: 1000,
         },
         {
           rank: 3,
           image: "https://img.megabox.co.kr/SharedImg/2025/07/21/PyQHev3OAVz7SGjIbnc6hGIA7GHmqq8g_420.jpg",
-          likes: "324",
+          likes: 324,
         },
         {
           rank: 4,
           image: "https://img.megabox.co.kr/SharedImg/2025/07/25/xW9c9qjuflwzzoHf6PPnfWOE5cAF4v4j_420.jpg",
-          likes: "1k",
+          likes: 1000,
         },
       ];
 
@@ -149,7 +168,7 @@
               key={movie.rank}
               rank={movie.rank}
               image={movie.image}
-              likes={movie.likes}
+              initialLikes={movie.likes}
             />
           ))}
         </div>
