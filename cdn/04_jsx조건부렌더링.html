@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- React, ReactDOM, Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>JSX 문법: 조건부 렌더링</title>
+</head>
+
+<body>
+    <!-- index.html -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // App.js
+        // 삼항 연산자
+        // {조건 ? 값1 : 값2}
+        const isLoggedIn = false;
+        let element3;
+
+        if (isLoggedIn === true) {
+            element3 = <p>환영합니다</p>
+        } else {
+            element3 = <p>로그인하세요</p>
+        }
+
+        const element = <div>{ isLoggedIn ? <p>환영합니다</p> : <p>로그인하세요</p> }</div>;
+        
+        // 논리 연산자
+        // 조건1 && 조건2 && ...
+        const isAdmin = true;
+        // -> 조건1이 거짓이면 조건2는 검사할 필요 없다.
+        // -> short-circuit(단축 평가)
+        const element2 = <div>{ isAdmin && <button>관리자 페이지</button> }</div>;
+        
+
+        // index.js
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(element3);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- React, ReactDOM, Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>리액트 시작하기</title>
+  </head>
+  <body>
+    <!-- CRA: /public/index.html -->
+    <div id="root"></div>
+
+    <!-- <script> -->
+      <script type="text/babel">
+      // CRA: App.js
+      // const element = <h1 class="abc">Hello, world!</h1>;
+      
+        const element = <div className="greeting">
+            <h1>Hello</h1>
+            <p>Welcome!</p>
+          </div>
+     
+      // React.createElement(type, {속성: 값, ...}, children)
+      // const element = React.createElement(
+      //   "div",
+      //   { className: "greeting" },
+      //   React.createElement("h1", null, "Hello"),
+      //   React.createElement("p", null, "Welcome!")
+      // );
+
+      // CRA: index.js
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(element);
+    </script>
+  </body>
+</html>

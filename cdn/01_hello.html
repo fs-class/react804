@@ -7,26 +7,24 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <title>JSX</title>
+    <title>리액트 시작하기</title>
   </head>
   <body>
+    <!-- CRA: /public/index.html -->
+    <!-- Vite: /index.html -->
     <div id="root"></div>
-    <script type="text/babel">
-      function App() {
-        return (
-          <div className="greeting">
-            <h1>Hello!</h1>
-            <p>Welcome!</p>
-          </div>
-        );
-      }
 
+    <script type="text/babel">
+      // CRA: App.js
+      // Vite: App.jsx
+      function App() {
+        return <div className="App">Hello React(CDN)!!</div>;
+      }
+      
+      // CRA: index.js
+      // Vite: main.jsx
       const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(
-        <>
-          <App />
-        </>
-      );
+      root.render(<App />);
     </script>
   </body>
 </html>

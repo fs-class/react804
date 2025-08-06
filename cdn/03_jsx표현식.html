@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- React, ReactDOM, Babel CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>리액트 시작하기</title>
+</head>
+
+<body>
+  <!-- index.html -->
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // App.js
+    const name = "React";
+    const isLoggedIn = true;
+    const fruits = ["Apple", "Banana", "Cherry"];
+    const imgUrl = "https://www.urbanbrush.net/web/wp-content/uploads/edd/2023/02/urban-20230228144115810458.jpg";
+    
+    // JS의 표현식은 {} 안에 쓴다.
+    const element = <>
+        {name} 배우기<br />
+        { 1 + 2 }<br />
+        { name.toUpperCase() }<br />
+        { isLoggedIn ? "Welcome" : "Please log in" }
+
+        {/* 
+            반복문: map()
+            arr.map((element, [index], [array]) => {
+              // return으로 새로운 값을 반환
+            });
+
+            <ul>
+                <li>Apple</li>
+                <li>Banana</li>
+                <li>Cherry</li>
+            </ul>
+        */}
+        <ul>{ fruits.map((item, idx) =>  
+              <li key={idx}>{item}</li>
+        ) }</ul>
+
+        <img src={imgUrl} alt="Example" width="100" />
+      </>;
+
+
+    // index.js
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(element);
+  </script>
+</body>
+
+</html>
