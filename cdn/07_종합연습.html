@@ -24,8 +24,25 @@
         */
 
         // App 컴포넌트
+        // CDN 방식에서 useState() 사용 시
+        const {useState} = React;
+        // CRA, Vite 방식
+        // import {useState} from 'react';
+
         function App() {
-            const mode = 'WELCOME';
+            // let mode = 'WELCOME';
+            //const _mode = useState('WELCOME');
+            //console.log('_mode', _mode);
+            // 데이터(값)
+            //console.log('_mode[0]', _mode[0]);
+            // 상태 값 변경 함수
+            //console.log('_mode[1]', _mode[1]);
+
+            // const [값, set함수] = useState(초깃값);
+            // Hook(훅) - useState()
+            const [mode, setMode] = useState('WELCOME');
+            const [id, setId] = useState(null);
+
             const topics = [
                 { id: 1, title: 'html', body: 'html is ...' },
                 { id: 2, title: 'css', body: 'css is ...' },
@@ -33,11 +50,19 @@
             ];
 
             let content = null;
-            // 제어문
+            // if 제어문
             if (mode === 'WELCOME') {
                 content = <Article title="Welcome" body="Hello, Web"></Article>
             } else if (mode === 'READ') {
-                
+                let title, body = null;
+                for (let i=0; i<topics.length; i++) {
+                    console.log(topics[i].id, id);
+                    if(topics[i].id === id) {
+                        title = topics[i].title
+                        body = topics[i].body
+                    }
+                }
+                content = <Article title={title} body={body}></Article>
             }
 
             return (
@@ -45,12 +70,15 @@
                     {/* 리액트의 속성을 props라 부른다. */}
                     {/* <컴포넌트명 속성="값" /> */}
                     <Header subject="Web" onChangeMode={()=>{
-                        alert('header');
+                        {/* mode = 'WELCOME' */}
+                        setMode('WELCOME');
                     }}></Header>
-                    <Nav topics={topics} onChangeMode={(id)=>{
-                        alert(id);
+                    <Nav topics={topics} onChangeMode={(_id)=>{
+                        {/* mode = 'READ' */}
+                        setMode('READ');
+                        setId(_id);
                     }} />
-                    <Article title="Welcome" body="Hello, WEB" />
+                    {content}
                 </div>
             );
         }
@@ -80,8 +108,8 @@
                 let t = props.topics[i];
                 lis.push(<li key={t.id}><a id={t.id} href={"/read/" + t.id} onClick={event=>{
                     event.preventDefault();
-                    console.log(event.target);
-                    props.onChangeMode(event.target.id);
+                    {/* console.log(event.target); */}
+                    props.onChangeMode(Number(event.target.id));
                 }}>{t.title}</a></li>);
             }
             return (

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- React, ReactDOM, Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>리액트: props(프랍스)</title>
+</head>
+
+<body>
+    <!-- index.html -->
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // App.js
+
+        /* 
+            props(프랍스, 속성)?
+                컴포넌트 간 데이터를 전달하는 방법
+                단방향: 부모 → 자식 방향으로만 전달됨
+                읽기 전용(read-only) 데이터
+
+            function Comp(props) {
+                return (값);
+            }
+            
+            <Comp 속성="값" 속성="값"></Comp>
+            <Comp 속성="값" 속성="값" />
+
+        */
+
+        // 부모 컴포넌트
+        /* 
+            <App>
+                <Welcome />
+            </App>
+        */
+
+        function App() {
+            return (
+                <>
+                    <Welcome name="React 개발자" age="20" />
+                    {/* {25}는 숫자 25 */}
+                    <Profile name="홍길동" age={25} job="개발자" />
+                    {/* <Counter onClick={handleClick} /> */}
+                    <Wrapper>
+                        <p>이 내용은 children입니다.</p>
+                    </Wrapper>
+                </>
+            );
+        }
+
+
+        // 자식 컴포넌트
+        // 여러 개의 props 전달
+        function Welcome(props) {
+            return <h1>{props.age}살, {props.name}님!</h1>;
+        }
+
+        // 구조 분해 할당 {속성명}
+        function Profile({ name, age, job }) {
+            return (
+                <div>
+                    <p>이름: {name}</p>
+                    <p>나이: {age}</p>
+                    <p>직업: {job}</p>
+                </div>
+            );
+        }
+
+
+        // props에 함수 전달
+        function Counter({ onClick }) {
+            return <button onClick={onClick}>+1</button>;
+        }
+
+        // props.children (컴포넌트 사이에 넣는 내용)
+        function Wrapper({children}) {
+            return <div className="box">{children}</div>;
+        }
+
+
+        // index.js
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
