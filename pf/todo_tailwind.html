@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>My To Do List</title>
+
+  <!-- ✅ Google Fonts - Noto Sans KR -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+
+  <!-- ✅ Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Noto Sans KR', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div id="root" class="flex justify-center items-start min-h-screen py-12 px-6"></div>
+
+  <!-- ✅ React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- ✅ React 코드 -->
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [tasks, setTasks] = useState([]);
+      const [input, setInput] = useState("");
+
+      const addTask = () => {
+        if (input.trim() === "") return;
+        setTasks([...tasks, input]);
+        setInput("");
+      };
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+          addTask();
+        }
+      };
+
+      const deleteTask = (index) => {
+        setTasks(tasks.filter((_, i) => i !== index));
+      };
+
+      return (
+        <div className="bg-white w-full max-w-[940px] md:max-w-[700px] px-[30px] py-10 rounded-2xl shadow-xl">
+          <h2 className="text-3xl font-bold text-center text-gray-800 flex items-center justify-center gap-3 mb-8">
+            <i className="fas fa-list-check text-blue-500 text-4xl"></i>
+            My To Do List
+          </h2>
+
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="할 일을 입력하세요"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <button
+              onClick={addTask}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition-all"
+            >
+              추가
+            </button>
+          </div>
+
+          <ul className="space-y-3">
+            {tasks.map((task, index) => (
+              <li
+                key={index}
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-100 px-4 py-3 rounded-md"
+              >
+                <span className="text-gray-800 break-words">{task}</span>
+                <button
+                  onClick={() => deleteTask(index)}
+                  className="mt-2 sm:mt-0 sm:ml-4 bg-red-500 hover:bg-red-600 text-white px-5 py-1.5 rounded-md transition-all"
+                >
+                  삭제
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

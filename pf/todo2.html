@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>My To Do List</title>
+
+  <!-- ✅ Google Fonts - Noto Sans KR -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+  <!-- ✅ Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-...=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 940px;
+      margin: 60px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    h2 i {
+      color: #3498db;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: stretch;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      height: 100%;
+    }
+
+    .add-btn {
+      padding: 0 16px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+    }
+
+    .add-btn:hover {
+      background-color: #2980b9;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      background: #ecf0f1;
+      margin-bottom: 10px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task-text {
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .delete-btn {
+      padding: 8px 16px;
+      font-size: 14px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      min-width: 80px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+
+    /* ✅ 반응형: 태블릿 이하 (width 100%, padding 좌우 30px) */
+    @media (max-width: 940px) {
+      .container {
+        max-width: 100%;
+        margin: 40px 0;
+        padding: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .input-group {
+        flex-direction: column;
+      }
+
+      .add-btn {
+        width: 100%;
+        margin-top: 5px;
+      }
+
+      li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .task-text {
+        margin-bottom: 5px;
+      }
+
+      .delete-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- React & ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- React 코드 -->
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [tasks, setTasks] = useState([]);
+      const [input, setInput] = useState("");
+
+      const addTask = () => {
+        if (input.trim() === "") return;
+        setTasks([...tasks, input]);
+        setInput("");
+      };
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+          addTask();
+        }
+      };
+
+      const deleteTask = (index) => {
+        const newTasks = tasks.filter((_, i) => i !== index);
+        setTasks(newTasks);
+      };
+
+      return (
+        <div className="container">
+          <h2>
+            <i className="fas fa-list-check"></i> My To Do List
+          </h2>
+          <div className="input-group">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="할 일을 입력하세요"
+            />
+            <button className="add-btn" onClick={addTask}>추가</button>
+          </div>
+
+          <ul>
+            {tasks.map((task, index) => (
+              <li key={index}>
+                <div className="task-text">{task}</div>
+                <button className="delete-btn" onClick={() => deleteTask(index)}>삭제</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
