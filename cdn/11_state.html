@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- React, ReactDOM, Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>리액트: state + event</title>
+</head>
+
+<body>
+    <!-- index.html -->
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // CRA 또는 Vite
+        // import { useState } from 'react';
+
+        // CDN
+        // 구조 분해 할당
+        const { useState } = React;
+
+        // App.js
+        function App(){
+            return(
+                <>
+                    <Counter />
+                </>
+            );
+        }
+
+        function Counter(){
+            // Hook(훅) - useState()
+            // const [변수, set변수] = useState(초깃값);
+            const [count, setCount] = useState(0);
+
+            //const handleAdd = ()=> setCount(count + 1);
+
+            // const handleSubtract = ()=>{
+            //     // 0이하이면 감소하지 않음!
+            //     if (count <= 0) return;
+            //     return setCount(count - 1);
+            // };
+
+            const handleCount = (num)=>{
+                //console.log('num=',num);
+                setCount(preCount=>{
+                    console.log('preCount=',preCount);
+                    const newCount=preCount + num;
+                    // 0이하이면 감소하지 않음!
+                    if (newCount <= 0) return 0;
+                    return newCount;
+                });
+            };
+
+            // 매개변수가 없으면 함수 이름만 -> onClick={함수명}
+            // 매개변수가 있는 경우 -> onClick={()=>함수명()} 
+            return(
+                <div>
+                    <p>카운트: {count} </p>
+                    <button onClick={()=>handleCount(1)}>+1</button>
+                    <button onClick={()=>handleCount(-1)}>-1</button>
+                </div>
+            );
+        }
+       
+        // index.js
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- React, ReactDOM, Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>리액트: event</title>
+</head>
+
+<body>
+    <!-- index.html -->
+    <!-- <button onclick="alert('클릭했어요!')">js클릭</button><br>
+    <button onclick="handleClick()">handleClick</button>
+
+    <script>
+        function handleClick(){
+            alert('handleClick!!!');
+        }
+    </script> -->
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // App.js
+        
+
+        // App 컴포넌트
+        function App() {
+            return (
+                <>
+                    <Button />
+                </>
+            );
+        }
+
+        // Button 컴포넌트
+        const Button = ()=>{
+
+            const handleAlert = event=>{
+                alert('클릭됨!');
+                console.log(event.target);
+            }
+
+            // 이벤트 형식?
+            // on이벤트명={함수명}
+
+            return (
+                <>
+                   <button onClick={handleAlert}>클릭</button> 
+                </>
+            );
+        }
+        // function Button(){
+        //     return (
+        //         <>
+        //         </>
+        //     );
+        // }
+        
+        // index.js
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+
+</html>
