@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>React CRUD - CDN 예제</title>
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel (JSX 변환) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input { margin-right: 5px; }
+    button { margin-left: 5px; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function App() {
+      const [items, setItems] = useState([]);
+      const [text, setText] = useState("");
+      const [editingId, setEditingId] = useState(null);
+
+      // Create or Update
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (editingId) {
+          setItems(items.map(item =>
+            item.id === editingId ? { ...item, text } : item
+          ));
+          setEditingId(null);
+        } else {
+          setItems([...items, { id: Date.now(), text }]);
+        }
+        setText("");
+      };
+
+      // Edit 준비
+      const handleEdit = (id) => {
+        const item = items.find(i => i.id === id);
+        setText(item.text);
+        setEditingId(id);
+      };
+
+      // Delete
+      const handleDelete = (id) => {
+        setItems(items.filter(item => item.id !== id));
+      };
+
+      return (
+        <div>
+          <h1>React CRUD 예제 (CDN)</h1>
+
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="내용 입력"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              required
+            />
+            <button type="submit">
+              {editingId ? "수정하기" : "추가하기"}
+            </button>
+          </form>
+
+          <ul>
+            {items.map(item => (
+              <li key={item.id}>
+                {item.text}
+                <button onClick={() => handleEdit(item.id)}>수정</button>
+                <button onClick={() => handleDelete(item.id)}>삭제</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>
