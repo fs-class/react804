@@ -1,0 +1,14 @@
+.gnb {
+  padding: 10px;
+}
+.gnb_link {
+  margin-right: 10px;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+a:not(:nth-of-type(2))::after {
+  content: '|';
+  margin-left: 8px;
+}
